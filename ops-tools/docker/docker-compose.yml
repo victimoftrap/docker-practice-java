@@ -7,7 +7,7 @@ volumes:
   db-dump:
 
 services:
-  abc_database:
+  abc_postgres:
     container_name: postgres_abc
     image: postgres:12
     ports:
@@ -29,3 +29,18 @@ services:
       - "9877:6379"
     networks:
       - docker-practice-net
+
+  application:
+    build: ./images/app/
+    ports:
+      - "8888:8080"
+    networks:
+      - docker-practice-net
+    volumes:
+      - ../../:/app
+    depends_on:
+      - abc_postgres
+      - abc_redis
+    links:
+      - abc_postgres
+      - abc_redis
