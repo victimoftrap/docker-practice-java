@@ -1,12 +1,14 @@
-FROM ubuntu:18.04
+FROM alpine:3.11
 
 COPY . /app
 
-RUN apt-get update \
-    && apt-get install openjdk-8-jdk -y \
-    && apt-get install maven -y
+RUN apk update \
+    && apk fetch openjdk8 \
+    && apk add openjdk8 \
+    && apk add maven
 
 WORKDIR /app
 
-ENTRYPOINT mvn spring-boot:run
+ENTRYPOINT ["mvn"]
+CMD ["spring-boot:run"]
 EXPOSE 8080
