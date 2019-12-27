@@ -31,6 +31,7 @@ services:
       - docker-practice-net
 
   application:
+    container_name: application_sample
     build: ./images/app/
     ports:
       - "8888:8080"
@@ -39,8 +40,5 @@ services:
     volumes:
       - ../../:/app
     depends_on:
-      - sample_postgres
-      - sample_redis
-    links:
       - sample_postgres
       - sample_redis
