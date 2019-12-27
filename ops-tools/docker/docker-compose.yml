@@ -7,11 +7,11 @@ volumes:
   db-dump:
 
 services:
-  abc_postgres:
-    container_name: postgres_abc
+  sample_postgres:
+    container_name: postgres_sample
     image: postgres:12
     ports:
-      - "9876:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=school
       - POSTGRES_PASSWORD=school
@@ -22,11 +22,11 @@ services:
     networks:
       - docker-practice-net
 
-  abc_redis:
-    container_name: redis_abc
+  sample_redis:
+    container_name: redis_sample
     image: redis:5.0
     ports:
-      - "9877:6379"
+      - "6379:6379"
     networks:
       - docker-practice-net
 
@@ -39,8 +39,8 @@ services:
     volumes:
       - ../../:/app
     depends_on:
-      - abc_postgres
-      - abc_redis
+      - sample_postgres
+      - sample_redis
     links:
-      - abc_postgres
-      - abc_redis
+      - sample_postgres
+      - sample_redis
